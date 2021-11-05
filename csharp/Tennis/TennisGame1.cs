@@ -3,18 +3,38 @@ namespace Tennis
     using System;
 
 
-    internal class TennisGame1 : ITennisGame
+    internal class Player1
     {
 
         private Int32 m_score1  ;
-        private Int32 m_score2  ;
         private String player1Name;
+
+
+        public Player1 (String player1Name)
+        {
+            this.player1Name = player1Name;
+        }
+
+
+        public Int32 MScore1 {
+            set { this.m_score1 = value; }
+            get { return this.m_score1; }
+        }
+
+    }
+
+
+    internal class TennisGame1 : ITennisGame
+    {
+
+        private Int32 m_score2  ;
         private String player2Name;
+        private readonly Player1 player1;
 
 
         public TennisGame1 (String player1Name, String player2Name)
         {
-            this.player1Name = player1Name;
+            this.player1 = new Player1( player1Name );
             this.player2Name = player2Name;
         }
 
@@ -22,7 +42,7 @@ namespace Tennis
         public void WonPoint (String playerName)
         {
             if (playerName == "player1") {
-                this.m_score1 += 1;
+                this.player1.MScore1 += 1;
             }
             else {
                 this.m_score2 += 1;
@@ -35,8 +55,8 @@ namespace Tennis
             var score     = "";
             var tempScore = 0;
 
-            if (this.m_score1 == this.m_score2) {
-                switch (this.m_score1) {
+            if (this.player1.MScore1 == this.m_score2) {
+                switch (this.player1.MScore1) {
                     case 0:
                         score = "Love-All";
                         break;
@@ -51,8 +71,8 @@ namespace Tennis
                         break;
                 }
             }
-            else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
-                Int32 minusResult = this.m_score1 - this.m_score2;
+            else if (this.player1.MScore1 >= 4 || this.m_score2 >= 4) {
+                Int32 minusResult = this.player1.MScore1 - this.m_score2;
 
                 if (minusResult == 1) {
                     score = "Advantage player1";
@@ -70,7 +90,7 @@ namespace Tennis
             else {
                 for (var i = 1; i < 3; i++) {
                     if (i == 1) {
-                        tempScore = this.m_score1;
+                        tempScore = this.player1.MScore1;
                     }
                     else {
                         score += "-";
