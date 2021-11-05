@@ -3,13 +3,13 @@ namespace Tennis
     using System;
 
 
-    internal class Player1
+    internal class Player
     {
 
         private String player1Name;
 
 
-        public Player1 (String player1Name)
+        public Player (String player1Name)
         {
             this.player1Name = player1Name;
         }
@@ -23,14 +23,14 @@ namespace Tennis
     internal class TennisGame1 : ITennisGame
     {
 
-        private readonly Player1 player1;
-        private readonly Player1 player2;
+        private readonly Player player1;
+        private readonly Player player2;
 
 
         public TennisGame1 (String player1Name, String player2Name)
         {
-            this.player1 = new Player1( player1Name );
-            this.player2 = new Player1( player2Name );
+            this.player1 = new Player( player1Name );
+            this.player2 = new Player( player2Name );
         }
 
 
