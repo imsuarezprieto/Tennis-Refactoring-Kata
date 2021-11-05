@@ -27,7 +27,7 @@ namespace Tennis
     internal class Player2
     {
 
-        private Int32 m_score2  ;
+        private Int32 _mScore1  ;
         private String player2Name;
 
 
@@ -37,9 +37,9 @@ namespace Tennis
         }
 
 
-        public Int32 MScore2 {
-            set { this.m_score2 = value; }
-            get { return this.m_score2; }
+        public Int32 MScore1 {
+            set { this._mScore1 = value; }
+            get { return this._mScore1; }
         }
 
     }
@@ -65,7 +65,7 @@ namespace Tennis
                 this.player1.MScore1 += 1;
             }
             else {
-                this.player2.MScore2 += 1;
+                this.player2.MScore1 += 1;
             }
         }
 
@@ -75,7 +75,7 @@ namespace Tennis
             var score     = "";
             var tempScore = 0;
 
-            if (this.player1.MScore1 == this.player2.MScore2) {
+            if (this.player1.MScore1 == this.player2.MScore1) {
                 switch (this.player1.MScore1) {
                     case 0:
                         score = "Love-All";
@@ -91,8 +91,8 @@ namespace Tennis
                         break;
                 }
             }
-            else if (this.player1.MScore1 >= 4 || this.player2.MScore2 >= 4) {
-                Int32 minusResult = this.player1.MScore1 - this.player2.MScore2;
+            else if (this.player1.MScore1 >= 4 || this.player2.MScore1 >= 4) {
+                Int32 minusResult = this.player1.MScore1 - this.player2.MScore1;
 
                 if (minusResult == 1) {
                     score = "Advantage player1";
@@ -114,7 +114,7 @@ namespace Tennis
                     }
                     else {
                         score += "-";
-                        tempScore = this.player2.MScore2;
+                        tempScore = this.player2.MScore1;
                     }
 
                     switch (tempScore) {
