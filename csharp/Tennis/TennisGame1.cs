@@ -6,7 +6,6 @@ namespace Tennis
     internal class Player1
     {
 
-        private Int32 m_score1  ;
         private String player1Name;
 
 
@@ -16,31 +15,7 @@ namespace Tennis
         }
 
 
-        public Int32 MScore1 {
-            set { this.m_score1 = value; }
-            get { return this.m_score1; }
-        }
-
-    }
-
-
-    internal class Player2
-    {
-
-        private Int32 _mScore1  ;
-        private String player2Name;
-
-
-        public Player2 (String player2Name)
-        {
-            this.player2Name = player2Name;
-        }
-
-
-        public Int32 MScore1 {
-            set { this._mScore1 = value; }
-            get { return this._mScore1; }
-        }
+        public Int32 MScore1 { set; get; }
 
     }
 
