@@ -15,7 +15,7 @@ namespace Tennis
         }
 
 
-        public Int32 MScore1 { set; get; }
+        public Int32 Score { set; get; }
 
     }
 
@@ -37,10 +37,10 @@ namespace Tennis
         public void WonPoint (String playerName)
         {
             if (playerName == "player1") {
-                this.player1.MScore1 += 1;
+                this.player1.Score += 1;
             }
             else {
-                this.player2.MScore1 += 1;
+                this.player2.Score += 1;
             }
         }
 
@@ -50,8 +50,8 @@ namespace Tennis
             var score     = "";
             var tempScore = 0;
 
-            if (this.player1.MScore1 == this.player2.MScore1) {
-                switch (this.player1.MScore1) {
+            if (this.player1.Score == this.player2.Score) {
+                switch (this.player1.Score) {
                     case 0:
                         score = "Love-All";
                         break;
@@ -66,8 +66,8 @@ namespace Tennis
                         break;
                 }
             }
-            else if (this.player1.MScore1 >= 4 || this.player2.MScore1 >= 4) {
-                Int32 minusResult = this.player1.MScore1 - this.player2.MScore1;
+            else if (this.player1.Score >= 4 || this.player2.Score >= 4) {
+                Int32 minusResult = this.player1.Score - this.player2.Score;
 
                 if (minusResult == 1) {
                     score = "Advantage player1";
@@ -85,11 +85,11 @@ namespace Tennis
             else {
                 for (var i = 1; i < 3; i++) {
                     if (i == 1) {
-                        tempScore = this.player1.MScore1;
+                        tempScore = this.player1.Score;
                     }
                     else {
                         score += "-";
-                        tempScore = this.player2.MScore1;
+                        tempScore = this.player2.Score;
                     }
 
                     switch (tempScore) {
