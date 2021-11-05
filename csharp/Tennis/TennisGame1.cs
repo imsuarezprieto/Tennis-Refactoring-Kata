@@ -49,13 +49,13 @@ namespace Tennis
     {
 
         private readonly Player1 player1;
-        private readonly Player2 player2;
+        private readonly Player1 player2;
 
 
         public TennisGame1 (String player1Name, String player2Name)
         {
             this.player1 = new Player1( player1Name );
-            this.player2 = new Player2( player2Name );
+            this.player2 = new Player1( player2Name );
         }
 
 
