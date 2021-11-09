@@ -71,13 +71,24 @@ namespace Tennis
                         ? this.player1.Name
                         : this.player2.Name;
 
+        private Difference GetDifference ()
+        {
+            if (this.player1.Score.Points == this.player2.Score.Points) {
+                return Difference.Equal;
+            }
+            if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
+                return (Difference) Math.Abs( this.player1.Score.Points - this.player2.Score.Points  );
+            }
+            return Difference.None;
+        }
+
 
         private enum Difference
         {
-            None,
             Equal,
             Advantage,
             Win,
+            None,
         }
     }
 }
