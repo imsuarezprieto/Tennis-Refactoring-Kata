@@ -61,20 +61,10 @@ namespace Tennis
             var score = "";
 
             if (this.player1.Score.Points == this.player2.Score.Points) {
-                switch (this.player1.Score.Points) {
-                    case 0:
-                        score = "Love-All";
-                        break;
-                    case 1:
-                        score = "Fifteen-All";
-                        break;
-                    case 2:
-                        score = "Thirty-All";
-                        break;
-                    default:
-                        score = "Deuce";
-                        break;
-                }
+                score = this.player1.Score.Points switch {
+                        >2 => "Deuce",
+                        _  => $"{this.player1.Score}-All",
+                };
             }
             else if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
                 Int32 minusResult = this.player1.Score.Points - this.player2.Score.Points;
