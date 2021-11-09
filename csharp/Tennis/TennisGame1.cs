@@ -27,10 +27,8 @@ namespace Tennis
 
 
     internal sealed record Player(
-            String Name )
-    {
-        public Score Score { get; init; } = new();
-    }
+            String Name,
+            Score  Score );
 
 
     internal sealed class Players
@@ -45,7 +43,7 @@ namespace Tennis
 
         public Players Add ( String playerName )
         {
-            this.players.Add( key: playerName, value: new Player( playerName ) );
+            this.players.Add( key: playerName, value: new Player( Name: playerName, Score: new Score() ) );
             return this;
         }
     }
