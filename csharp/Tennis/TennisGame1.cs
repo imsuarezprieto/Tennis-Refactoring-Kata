@@ -1,5 +1,7 @@
 // ReSharper disable ArrangeConstructorOrDestructorBody
 
+// ReSharper disable ArgumentsStyleOther
+
 namespace Tennis
 {
     using System;
@@ -70,7 +72,7 @@ namespace Tennis
 
         public String GetScore ()
             =>
-                    this.Distance( score1: this.players[0].Score.Points, score2: this.players[1].Score.Points ) switch {
+                    this.Distance( this.players[0], this.players[1] ) switch {
                             0                            => this.players[0].Score.Points > 2 ? "Deuce" : $"{this.players[0].Score}-All",
                             1 when this.AreInAdvantage() => $"Advantage {this.GetPlayerNameInAdvantage()}",
                             _ when this.AreInAdvantage() => $"Win for {this.GetPlayerNameInAdvantage()}",
@@ -88,9 +90,9 @@ namespace Tennis
                     || this.players[1].Score.Points >= 4;
 
         private Int32 Distance (
-                Int32 score1,
-                Int32 score2 )
+                Player player1,
+                Player player2 )
             =>
-                    Math.Abs( score1 - score2  );
+                    Math.Abs( player1.Score.Points - player2.Score.Points  );
     }
 }
