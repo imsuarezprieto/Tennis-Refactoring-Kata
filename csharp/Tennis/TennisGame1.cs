@@ -67,20 +67,12 @@ namespace Tennis
                 };
             }
             else if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
-                Int32 minusResult = this.player1.Score.Points - this.player2.Score.Points;
-
-                if (minusResult == 1) {
-                    score = "Advantage player1";
-                }
-                else if (minusResult == -1) {
-                    score = "Advantage player2";
-                }
-                else if (minusResult >= 2) {
-                    score = "Win for player1";
-                }
-                else {
-                    score = "Win for player2";
-                }
+                score = (this.player1.Score.Points - this.player2.Score.Points) switch {
+                        1    => "Advantage player1",
+                        -1   => "Advantage player2",
+                        >= 2 => "Win for player1",
+                        _    => "Win for player2",
+                };
             }
             else {
                 score = $"{this.player1.Score}-{this.player2.Score}";
