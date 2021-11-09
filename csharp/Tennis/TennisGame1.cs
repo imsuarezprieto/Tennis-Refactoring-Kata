@@ -21,17 +21,10 @@ namespace Tennis
     }
 
 
-    internal class Player
+    internal sealed record Player(
+            String Name )
     {
-        private String name;
-
-        public Player ( String name )
-        {
-            this.name = name;
-            this.Score = new Score();
-        }
-
-        public Score Score { get; }
+        public Score Score { get; init; } = new();
     }
 
 
@@ -58,18 +51,20 @@ namespace Tennis
 
         public String GetScore ()
         {
-            if (this.player1.Score.Points == this.player2.Score.Points)
+            if (this.player1.Score.Points == this.player2.Score.Points) {
                 return this.player1.Score.Points switch {
                         >2 => "Deuce",
                         _  => $"{this.player1.Score}-All",
                 };
-            if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4)
+            }
+            if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
                 return (this.player1.Score.Points - this.player2.Score.Points) switch {
                         1    => "Advantage player1",
                         -1   => "Advantage player2",
                         >= 2 => "Win for player1",
                         _    => "Win for player2",
                 };
+            }
             return $"{this.player1.Score}-{this.player2.Score}";
         }
     }
