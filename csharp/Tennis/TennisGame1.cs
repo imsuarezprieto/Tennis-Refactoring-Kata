@@ -73,6 +73,15 @@ namespace Tennis
             return Difference.None;
         }
 
+        public Boolean AreInAdvantage () =>
+                this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4;
+
+        public Int32 Distance (
+                Int32 score1,
+                Int32 score2 )
+            =>
+                    Math.Abs( score1 - score2  );
+
 
         private enum Difference
         {
