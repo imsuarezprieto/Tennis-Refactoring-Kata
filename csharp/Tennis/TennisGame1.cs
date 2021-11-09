@@ -1,6 +1,7 @@
 namespace Tennis
 {
     using System;
+    using System.Collections.Specialized;
 
 
     internal sealed class Score
@@ -27,6 +28,24 @@ namespace Tennis
             String Name )
     {
         public Score Score { get; init; } = new();
+    }
+
+
+    internal sealed class Players
+    {
+        private IOrderedDictionary players = new OrderedDictionary();
+
+        public Player this [ String playerName ]
+            => this.players[playerName] as Player;
+
+        public Player this [ Int32 playerNumber ]
+            => this.players[playerNumber] as Player;
+
+        public Players Add ( String playerName )
+        {
+            this.players.Add( playerName, new Player( playerName ) );
+            return this;
+        }
     }
 
 
