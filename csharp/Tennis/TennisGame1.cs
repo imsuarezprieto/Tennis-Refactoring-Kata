@@ -5,15 +5,19 @@ namespace Tennis
 
     internal class Score
     {
-        public Int32 Points { set; get; } = 0;
+        public Int32 Points { get; private set; }
 
-        public override String ToString () => Points switch {
-                0 => "Love",
-                1 => "Fifteen",
-                2 => "Thirty",
-                3 => "Forty",
-                _ => "",
-        };
+        public void AddPoint () =>
+                this.Points += 1;
+
+        public override String ToString () =>
+                this.Points switch {
+                        0 => "Love",
+                        1 => "Fifteen",
+                        2 => "Thirty",
+                        3 => "Forty",
+                        _ => "",
+                };
     }
 
 
@@ -45,10 +49,10 @@ namespace Tennis
         public void WonPoint ( String playerName )
         {
             if (playerName == "player1") {
-                this.player1.Score.Points += 1;
+                this.player1.Score.AddPoint();
             }
             else {
-                this.player2.Score.Points += 1;
+                this.player2.Score.AddPoint();
             }
         }
 
