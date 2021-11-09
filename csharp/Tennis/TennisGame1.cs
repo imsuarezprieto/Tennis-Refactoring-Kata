@@ -59,13 +59,16 @@ namespace Tennis
             }
             if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
                 return (this.player1.Score.Points - this.player2.Score.Points) switch {
-                        1    => "Advantage player1",
-                        -1   => "Advantage player2",
-                        >= 2 => "Win for player1",
-                        _    => "Win for player2",
+                        1 or -1 => $"Advantage {this.GetPlayerNameInAdvantage()}",
+                        _       => $"Win for {this.GetPlayerNameInAdvantage()}",
                 };
             }
             return $"{this.player1.Score}-{this.player2.Score}";
         }
+
+        public String GetPlayerNameInAdvantage () =>
+                this.player1.Score.Points > this.player2.Score.Points
+                        ? this.player1.Name
+                        : this.player2.Name;
     }
 }
