@@ -70,5 +70,14 @@ namespace Tennis
                 this.player1.Score.Points > this.player2.Score.Points
                         ? this.player1.Name
                         : this.player2.Name;
+
+
+        private enum Difference
+        {
+            None,
+            Equal,
+            Advantage,
+            Win,
+        }
     }
 }
