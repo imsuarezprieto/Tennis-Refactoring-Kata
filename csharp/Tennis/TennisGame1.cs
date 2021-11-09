@@ -36,14 +36,18 @@ namespace Tennis
         private readonly IOrderedDictionary players = new OrderedDictionary();
 
         public Player this [ String playerName ]
-            => this.players[playerName] as Player;
+            =>
+                    this.players[playerName] as Player;
 
         public Player this [ Int32 playerNumber ]
-            => this.players[playerNumber] as Player;
+            =>
+                    this.players[playerNumber] as Player;
 
         public Players Add ( String playerName )
         {
-            this.players.Add( key: playerName, value: new Player( Name: playerName, Score: new Score() ) );
+            this.players.Add(
+                    key: playerName,
+                    value: new Player( Name: playerName, Score: new Score() ) );
             return this;
         }
     }
