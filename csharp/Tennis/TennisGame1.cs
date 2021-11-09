@@ -3,7 +3,7 @@ namespace Tennis
     using System;
 
 
-    internal class Score
+    internal sealed class Score
     {
         public Int32 Points { get; private set; }
 
@@ -28,7 +28,7 @@ namespace Tennis
     }
 
 
-    internal class TennisGame1 : ITennisGame
+    internal sealed class TennisGame1 : ITennisGame
     {
         private readonly Player player1;
         private readonly Player player2;
