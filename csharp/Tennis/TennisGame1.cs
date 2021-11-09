@@ -49,27 +49,19 @@ namespace Tennis
             }
         }
 
-        public String GetScore () =>
-                this.GetDifference() switch {
-                        Difference.Equal     => this.player1.Score.Points > 2 ? "Deuce" : $"{this.player1.Score}-All",
-                        Difference.Advantage => $"Advantage {this.GetPlayerNameInAdvantage()}",
-                        Difference.Win       => $"Win for {this.GetPlayerNameInAdvantage()}",
-                        _                    => $"{this.player1.Score}-{this.player2.Score}",
-                };
+        public String GetScore ()
+            =>
+                    this.Distance( score1: this.player1.Score.Points, score2: this.player2.Score.Points ) switch {
+                            0                            => this.player1.Score.Points > 2 ? "Deuce" : $"{this.player1.Score}-All",
+                            1 when this.AreInAdvantage() => $"Advantage {this.GetPlayerNameInAdvantage()}",
+                            _ when this.AreInAdvantage() => $"Win for {this.GetPlayerNameInAdvantage()}",
+                            _                            => $"{this.player1.Score}-{this.player2.Score}",
+                    };
 
         public String GetPlayerNameInAdvantage () =>
                 this.player1.Score.Points > this.player2.Score.Points
                         ? this.player1.Name
                         : this.player2.Name;
-
-        private Difference GetDifference ()
-            =>
-                    this.Distance( score1: this.player1.Score.Points, score2: this.player2.Score.Points ) switch {
-                            0                            => Difference.Equal,
-                            1 when this.AreInAdvantage() => Difference.Advantage,
-                            _ when this.AreInAdvantage() => Difference.Win,
-                            _                            => Difference.None,
-                    };
 
         public Boolean AreInAdvantage () =>
                 this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4;
