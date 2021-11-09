@@ -7,17 +7,19 @@ namespace Tennis
     {
         public Int32 Points { get; private set; }
 
-        public void AddPoint () =>
-                this.Points += 1;
+        public void AddPoint ()
+            =>
+                    this.Points += 1;
 
-        public override String ToString () =>
-                this.Points switch {
-                        0 => "Love",
-                        1 => "Fifteen",
-                        2 => "Thirty",
-                        3 => "Forty",
-                        _ => "",
-                };
+        public override String ToString ()
+            =>
+                    this.Points switch {
+                            0 => "Love",
+                            1 => "Fifteen",
+                            2 => "Thirty",
+                            3 => "Forty",
+                            _ => "",
+                    };
     }
 
 
@@ -63,8 +65,9 @@ namespace Tennis
                         ? this.player1.Name
                         : this.player2.Name;
 
-        private Boolean AreInAdvantage () =>
-                this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4;
+        private Boolean AreInAdvantage ()
+            =>
+                    this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4;
 
         private Int32 Distance (
                 Int32 score1,
