@@ -58,8 +58,7 @@ namespace Tennis
 
         public String GetScore ()
         {
-            var score     = "";
-            var tempScore = 0;
+            var score = "";
 
             if (this.player1.Score.Points == this.player2.Score.Points) {
                 switch (this.player1.Score.Points) {
