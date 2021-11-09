@@ -49,22 +49,13 @@ namespace Tennis
             }
         }
 
-        public String GetScore ()
-        {
-            if (this.player1.Score.Points == this.player2.Score.Points) {
-                return this.player1.Score.Points switch {
-                        >2 => "Deuce",
-                        _  => $"{this.player1.Score}-All",
+        public String GetScore () =>
+                this.GetDifference() switch {
+                        Difference.Equal     => this.player1.Score.Points > 2 ? "Deuce" : $"{this.player1.Score}-All",
+                        Difference.Advantage => $"Advantage {this.GetPlayerNameInAdvantage()}",
+                        Difference.Win       => $"Win for {this.GetPlayerNameInAdvantage()}",
+                        _                    => $"{this.player1.Score}-{this.player2.Score}",
                 };
-            }
-            if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
-                return (this.player1.Score.Points - this.player2.Score.Points) switch {
-                        1 or -1 => $"Advantage {this.GetPlayerNameInAdvantage()}",
-                        _       => $"Win for {this.GetPlayerNameInAdvantage()}",
-                };
-            }
-            return $"{this.player1.Score}-{this.player2.Score}";
-        }
 
         public String GetPlayerNameInAdvantage () =>
                 this.player1.Score.Points > this.player2.Score.Points
@@ -77,7 +68,7 @@ namespace Tennis
                 return Difference.Equal;
             }
             if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
-                return (Difference) Math.Abs( this.player1.Score.Points - this.player2.Score.Points  );
+                return Math.Abs( this.player1.Score.Points - this.player2.Score.Points  ) == 1 ? Difference.Advantage : Difference.Win;
             }
             return Difference.None;
         }
