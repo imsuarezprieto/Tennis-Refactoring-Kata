@@ -5,36 +5,29 @@ namespace Tennis
 
     internal class Player
     {
+        private String name;
 
-        private String player1Name;
-
-
-        public Player (String player1Name)
+        public Player ( String name )
         {
-            this.player1Name = player1Name;
+            this.name = name;
         }
 
-
         public Int32 Score { set; get; }
-
     }
 
 
     internal class TennisGame1 : ITennisGame
     {
-
         private readonly Player player1;
         private readonly Player player2;
 
-
-        public TennisGame1 (String player1Name, String player2Name)
+        public TennisGame1 ( String player1Name, String player2Name )
         {
             this.player1 = new Player( player1Name );
             this.player2 = new Player( player2Name );
         }
 
-
-        public void WonPoint (String playerName)
+        public void WonPoint ( String playerName )
         {
             if (playerName == "player1") {
                 this.player1.Score += 1;
@@ -43,7 +36,6 @@ namespace Tennis
                 this.player2.Score += 1;
             }
         }
-
 
         public String GetScore ()
         {
@@ -111,6 +103,5 @@ namespace Tennis
 
             return score;
         }
-
     }
 }
