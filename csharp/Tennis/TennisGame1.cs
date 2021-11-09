@@ -63,15 +63,13 @@ namespace Tennis
                         : this.player2.Name;
 
         private Difference GetDifference ()
-        {
-            if (this.player1.Score.Points == this.player2.Score.Points) {
-                return Difference.Equal;
-            }
-            if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
-                return Math.Abs( this.player1.Score.Points - this.player2.Score.Points  ) == 1 ? Difference.Advantage : Difference.Win;
-            }
-            return Difference.None;
-        }
+            =>
+                    this.Distance( score1: this.player1.Score.Points, score2: this.player2.Score.Points ) switch {
+                            0                            => Difference.Equal,
+                            1 when this.AreInAdvantage() => Difference.Advantage,
+                            _ when this.AreInAdvantage() => Difference.Win,
+                            _                            => Difference.None,
+                    };
 
         public Boolean AreInAdvantage () =>
                 this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4;
