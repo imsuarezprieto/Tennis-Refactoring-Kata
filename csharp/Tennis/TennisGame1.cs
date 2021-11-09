@@ -94,30 +94,7 @@ namespace Tennis
                 }
             }
             else {
-                for (var i = 1; i < 3; i++) {
-                    if (i == 1) {
-                        tempScore = this.player1.Score.Points;
-                    }
-                    else {
-                        score += "-";
-                        tempScore = this.player2.Score.Points;
-                    }
-
-                    switch (tempScore) {
-                        case 0:
-                            score += "Love";
-                            break;
-                        case 1:
-                            score += "Fifteen";
-                            break;
-                        case 2:
-                            score += "Thirty";
-                            break;
-                        case 3:
-                            score += "Forty";
-                            break;
-                    }
-                }
+                score = $"{this.player1.Score}-{this.player2.Score}";
             }
 
             return score;
