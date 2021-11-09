@@ -1,82 +1,98 @@
+// ReSharper disable ArrangeConstructorOrDestructorBody
+
+// ReSharper disable ArgumentsStyleOther
+
 namespace Tennis
 {
-    class TennisGame1 : ITennisGame
+    using System;
+    using System.Collections.Specialized;
+
+
+    internal sealed class Score
     {
-        private int m_score1 = 0;
-        private int m_score2 = 0;
-        private string player1Name;
-        private string player2Name;
+        public Int32 Points { get; private set; }
 
-        public TennisGame1(string player1Name, string player2Name)
+        public void AddPoint ()
+            =>
+                    this.Points += 1;
+
+        public override String ToString ()
+            =>
+                    this.Points switch {
+                            0 => "Love",
+                            1 => "Fifteen",
+                            2 => "Thirty",
+                            3 => "Forty",
+                            _ => "",
+                    };
+    }
+
+
+    internal sealed record Player(
+            String Name,
+            Score  Score );
+
+
+    internal sealed class Players
+    {
+        private readonly IOrderedDictionary players = new OrderedDictionary();
+
+        public Player this [ String playerName ]
+            =>
+                    this.players[playerName] as Player;
+
+        public Player this [ Int32 playerNumber ]
+            =>
+                    this.players[playerNumber] as Player;
+
+        public Players Add ( String playerName )
         {
-            this.player1Name = player1Name;
-            this.player2Name = player2Name;
-        }
-
-        public void WonPoint(string playerName)
-        {
-            if (playerName == "player1")
-                m_score1 += 1;
-            else
-                m_score2 += 1;
-        }
-
-        public string GetScore()
-        {
-            string score = "";
-            var tempScore = 0;
-            if (m_score1 == m_score2)
-            {
-                switch (m_score1)
-                {
-                    case 0:
-                        score = "Love-All";
-                        break;
-                    case 1:
-                        score = "Fifteen-All";
-                        break;
-                    case 2:
-                        score = "Thirty-All";
-                        break;
-                    default:
-                        score = "Deuce";
-                        break;
-
-                }
-            }
-            else if (m_score1 >= 4 || m_score2 >= 4)
-            {
-                var minusResult = m_score1 - m_score2;
-                if (minusResult == 1) score = "Advantage player1";
-                else if (minusResult == -1) score = "Advantage player2";
-                else if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
-            }
-            else
-            {
-                for (var i = 1; i < 3; i++)
-                {
-                    if (i == 1) tempScore = m_score1;
-                    else { score += "-"; tempScore = m_score2; }
-                    switch (tempScore)
-                    {
-                        case 0:
-                            score += "Love";
-                            break;
-                        case 1:
-                            score += "Fifteen";
-                            break;
-                        case 2:
-                            score += "Thirty";
-                            break;
-                        case 3:
-                            score += "Forty";
-                            break;
-                    }
-                }
-            }
-            return score;
+            this.players.Add(
+                    key: playerName,
+                    value: new Player( Name: playerName, Score: new Score() ) );
+            return this;
         }
     }
-}
 
+
+    internal sealed class TennisGame1 : ITennisGame
+    {
+        private readonly Players players = new();
+
+        public TennisGame1 ( String player1Name, String player2Name )
+            =>
+                    this.players
+                            .Add( player1Name )
+                            .Add( player2Name );
+
+        public void WonPoint ( String playerName )
+            =>
+                    this.players[playerName]
+                            .Score.AddPoint();
+
+        public String GetScore ()
+            =>
+                    this.Distance( this.players[0], this.players[1] ) switch {
+                            0                            => this.players[0].Score.Points > 2 ? "Deuce" : $"{this.players[0].Score}-All",
+                            1 when this.AreInAdvantage() => $"Advantage {this.GetPlayerInAdvantage().Name}",
+                            _ when this.AreInAdvantage() => $"Win for {this.GetPlayerInAdvantage().Name}",
+                            _                            => $"{this.players[0].Score}-{this.players[1].Score}",
+                    };
+
+        private Player GetPlayerInAdvantage () =>
+                this.players[0].Score.Points > this.players[1].Score.Points
+                        ? this.players[0]
+                        : this.players[1];
+
+        private Boolean AreInAdvantage ()
+            =>
+                    this.players[0].Score.Points >= 4
+                    || this.players[1].Score.Points >= 4;
+
+        private Int32 Distance (
+                Player player1,
+                Player player2 )
+            =>
+                    Math.Abs( player1.Score.Points - player2.Score.Points  );
+    }
+}
