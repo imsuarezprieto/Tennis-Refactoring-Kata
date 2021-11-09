@@ -71,14 +71,5 @@ namespace Tennis
                 Int32 score2 )
             =>
                     Math.Abs( score1 - score2  );
-
-
-        private enum Difference
-        {
-            Equal,
-            Advantage,
-            Win,
-            None,
-        }
     }
 }
