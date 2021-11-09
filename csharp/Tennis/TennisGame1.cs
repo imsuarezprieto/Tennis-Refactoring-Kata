@@ -3,6 +3,12 @@ namespace Tennis
     using System;
 
 
+    internal class Score
+    {
+        public Int32 Points { set; get; } = 0;
+    }
+
+
     internal class Player
     {
         private String name;
@@ -10,9 +16,10 @@ namespace Tennis
         public Player ( String name )
         {
             this.name = name;
+            this.Score = new Score();
         }
 
-        public Int32 Score { set; get; }
+        public Score Score { get; }
     }
 
 
@@ -30,10 +37,10 @@ namespace Tennis
         public void WonPoint ( String playerName )
         {
             if (playerName == "player1") {
-                this.player1.Score += 1;
+                this.player1.Score.Points += 1;
             }
             else {
-                this.player2.Score += 1;
+                this.player2.Score.Points += 1;
             }
         }
 
@@ -42,8 +49,8 @@ namespace Tennis
             var score     = "";
             var tempScore = 0;
 
-            if (this.player1.Score == this.player2.Score) {
-                switch (this.player1.Score) {
+            if (this.player1.Score.Points == this.player2.Score.Points) {
+                switch (this.player1.Score.Points) {
                     case 0:
                         score = "Love-All";
                         break;
@@ -58,8 +65,8 @@ namespace Tennis
                         break;
                 }
             }
-            else if (this.player1.Score >= 4 || this.player2.Score >= 4) {
-                Int32 minusResult = this.player1.Score - this.player2.Score;
+            else if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
+                Int32 minusResult = this.player1.Score.Points - this.player2.Score.Points;
 
                 if (minusResult == 1) {
                     score = "Advantage player1";
@@ -77,11 +84,11 @@ namespace Tennis
             else {
                 for (var i = 1; i < 3; i++) {
                     if (i == 1) {
-                        tempScore = this.player1.Score;
+                        tempScore = this.player1.Score.Points;
                     }
                     else {
                         score += "-";
-                        tempScore = this.player2.Score;
+                        tempScore = this.player2.Score.Points;
                     }
 
                     switch (tempScore) {
