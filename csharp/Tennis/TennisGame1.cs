@@ -74,15 +74,15 @@ namespace Tennis
             =>
                     this.Distance( this.players[0], this.players[1] ) switch {
                             0                            => this.players[0].Score.Points > 2 ? "Deuce" : $"{this.players[0].Score}-All",
-                            1 when this.AreInAdvantage() => $"Advantage {this.GetPlayerNameInAdvantage()}",
-                            _ when this.AreInAdvantage() => $"Win for {this.GetPlayerNameInAdvantage()}",
+                            1 when this.AreInAdvantage() => $"Advantage {this.GetPlayerInAdvantage().Name}",
+                            _ when this.AreInAdvantage() => $"Win for {this.GetPlayerInAdvantage().Name}",
                             _                            => $"{this.players[0].Score}-{this.players[1].Score}",
                     };
 
-        private String GetPlayerNameInAdvantage () =>
+        private Player GetPlayerInAdvantage () =>
                 this.players[0].Score.Points > this.players[1].Score.Points
-                        ? this.players[0].Name
-                        : this.players[1].Name;
+                        ? this.players[0]
+                        : this.players[1];
 
         private Boolean AreInAdvantage ()
             =>
