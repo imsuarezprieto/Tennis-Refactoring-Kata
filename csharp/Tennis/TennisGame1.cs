@@ -1,3 +1,5 @@
+// ReSharper disable ArrangeConstructorOrDestructorBody
+
 namespace Tennis
 {
     using System;
@@ -33,7 +35,7 @@ namespace Tennis
 
     internal sealed class Players
     {
-        private IOrderedDictionary players = new OrderedDictionary();
+        private readonly IOrderedDictionary players = new OrderedDictionary();
 
         public Player this [ String playerName ]
             => this.players[playerName] as Player;
@@ -43,7 +45,7 @@ namespace Tennis
 
         public Players Add ( String playerName )
         {
-            this.players.Add( playerName, new Player( playerName ) );
+            this.players.Add( key: playerName, value: new Player( playerName ) );
             return this;
         }
     }
@@ -51,42 +53,37 @@ namespace Tennis
 
     internal sealed class TennisGame1 : ITennisGame
     {
-        private readonly Player player1;
-        private readonly Player player2;
+        private readonly Players players = new();
 
         public TennisGame1 ( String player1Name, String player2Name )
-        {
-            this.player1 = new Player( player1Name );
-            this.player2 = new Player( player2Name );
-        }
+            =>
+                    this.players
+                            .Add( player1Name )
+                            .Add( player2Name );
 
         public void WonPoint ( String playerName )
-        {
-            if (playerName == "player1") {
-                this.player1.Score.AddPoint();
-            }
-            else {
-                this.player2.Score.AddPoint();
-            }
-        }
+            =>
+                    this.players[playerName]
+                            .Score.AddPoint();
 
         public String GetScore ()
             =>
-                    this.Distance( score1: this.player1.Score.Points, score2: this.player2.Score.Points ) switch {
-                            0                            => this.player1.Score.Points > 2 ? "Deuce" : $"{this.player1.Score}-All",
+                    this.Distance( score1: this.players[0].Score.Points, score2: this.players[1].Score.Points ) switch {
+                            0                            => this.players[0].Score.Points > 2 ? "Deuce" : $"{this.players[0].Score}-All",
                             1 when this.AreInAdvantage() => $"Advantage {this.GetPlayerNameInAdvantage()}",
                             _ when this.AreInAdvantage() => $"Win for {this.GetPlayerNameInAdvantage()}",
-                            _                            => $"{this.player1.Score}-{this.player2.Score}",
+                            _                            => $"{this.players[0].Score}-{this.players[1].Score}",
                     };
 
         private String GetPlayerNameInAdvantage () =>
-                this.player1.Score.Points > this.player2.Score.Points
-                        ? this.player1.Name
-                        : this.player2.Name;
+                this.players[0].Score.Points > this.players[1].Score.Points
+                        ? this.players[0].Name
+                        : this.players[1].Name;
 
         private Boolean AreInAdvantage ()
             =>
-                    this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4;
+                    this.players[0].Score.Points >= 4
+                    || this.players[1].Score.Points >= 4;
 
         private Int32 Distance (
                 Int32 score1,
