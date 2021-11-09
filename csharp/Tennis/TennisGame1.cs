@@ -58,27 +58,19 @@ namespace Tennis
 
         public String GetScore ()
         {
-            var score = "";
-
-            if (this.player1.Score.Points == this.player2.Score.Points) {
-                score = this.player1.Score.Points switch {
+            if (this.player1.Score.Points == this.player2.Score.Points)
+                return this.player1.Score.Points switch {
                         >2 => "Deuce",
                         _  => $"{this.player1.Score}-All",
                 };
-            }
-            else if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4) {
-                score = (this.player1.Score.Points - this.player2.Score.Points) switch {
+            if (this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4)
+                return (this.player1.Score.Points - this.player2.Score.Points) switch {
                         1    => "Advantage player1",
                         -1   => "Advantage player2",
                         >= 2 => "Win for player1",
                         _    => "Win for player2",
                 };
-            }
-            else {
-                score = $"{this.player1.Score}-{this.player2.Score}";
-            }
-
-            return score;
+            return $"{this.player1.Score}-{this.player2.Score}";
         }
     }
 }
