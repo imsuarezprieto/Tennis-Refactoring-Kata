@@ -58,15 +58,15 @@ namespace Tennis
                             _                            => $"{this.player1.Score}-{this.player2.Score}",
                     };
 
-        public String GetPlayerNameInAdvantage () =>
+        private String GetPlayerNameInAdvantage () =>
                 this.player1.Score.Points > this.player2.Score.Points
                         ? this.player1.Name
                         : this.player2.Name;
 
-        public Boolean AreInAdvantage () =>
+        private Boolean AreInAdvantage () =>
                 this.player1.Score.Points >= 4 || this.player2.Score.Points >= 4;
 
-        public Int32 Distance (
+        private Int32 Distance (
                 Int32 score1,
                 Int32 score2 )
             =>
