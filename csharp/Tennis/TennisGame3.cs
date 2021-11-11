@@ -51,7 +51,9 @@ namespace Tennis
         }
 
         private String AdvantagePlayerName ()
-            => this.player1.points > this.player2.points ? this.player1.name : this.player2.name;
+            => this.player1.points > this.player2.points
+                    ? this.player1.name
+                    : this.player2.name;
 
         private Int32 Difference ()
             => this.player1.points - this.player2.points;
