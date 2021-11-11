@@ -55,8 +55,7 @@ namespace Tennis
             String s;
             if (!this.AreOnePlayerInAdvantage()) {
                 String[] p = { "Love", "Fifteen", "Thirty", "Forty" };
-                s = p[this.player1.points];
-                return this.player1.points == this.player2.points ? s + "-All" : s + "-" + p[this.player2.points];
+                return this.player1.points == this.player2.points ? p[this.player1.points] + "-All" : p[this.player1.points] + "-" + p[this.player2.points];
             }
             if (this.player1.points == this.player2.points) {
                 return "Deuce";
