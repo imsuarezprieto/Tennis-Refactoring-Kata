@@ -20,6 +20,11 @@ namespace Tennis
                 Score3 score )
             =>
                     score with { Points = score.Points + 1 };
+
+        public static implicit operator Int32 (
+                Score3 score )
+            =>
+                    score.Points;
     }
 
 
