@@ -27,7 +27,7 @@ namespace Tennis
         public String GetScore ()
         {
             String s;
-            if (this.player1.points < 4 && this.player2.points < 4 && this.player1.points + this.player2.points < 6) {
+            if (!this.AreOnePlayerInAdvantage()) {
                 String[] p = { "Love", "Fifteen", "Thirty", "Forty" };
                 s = p[this.player1.points];
                 return this.player1.points == this.player2.points ? s + "-All" : s + "-" + p[this.player2.points];
@@ -49,6 +49,11 @@ namespace Tennis
                 this.player2.AddPoint();
             }
         }
+
+        private Boolean AreOnePlayerInAdvantage ()
+            => this.player1.points >= 4
+                    || this.player2.points >= 4
+                    || this.player1.points + this.player2.points >= 6;
 
         private String AdvantagePlayerName ()
             => this.player1.points > this.player2.points
