@@ -35,7 +35,7 @@ namespace Tennis
             if (this.player1.points == this.player2.points) {
                 return "Deuce";
             }
-            s = this.player1.points > this.player2.points ? this.player1.name : this.player2.name;
+            s = this.AdvantagePlayerName();
             return this.Difference() * this.Difference() == 1 ? "Advantage " + s : "Win for " + s;
         }
 
@@ -49,6 +49,10 @@ namespace Tennis
             }
         }
 
-        private Int32 Difference () => this.player1.points - this.player2.points;
+        private String AdvantagePlayerName ()
+            => this.player1.points > this.player2.points ? this.player1.name : this.player2.name;
+
+        private Int32 Difference ()
+            => this.player1.points - this.player2.points;
     }
 }
