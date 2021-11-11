@@ -31,10 +31,11 @@ namespace Tennis
     internal record Player3(
             String name )
     {
-        public Int32 points { get; private set;  }
+        public Score3 points { get; private set;  } = new(0);
 
         public void AddPoint ()
-            => this.points += 1;
+            =>
+                    this.points++;
     }
 
 
