@@ -51,16 +51,19 @@ namespace Tennis
         }
 
         private Boolean AreOnePlayerInAdvantage ()
-            => this.player1.points >= 4
+            =>
+                    this.player1.points >= 4
                     || this.player2.points >= 4
                     || this.player1.points + this.player2.points >= 6;
 
         private String AdvantagePlayerName ()
-            => this.player1.points > this.player2.points
-                    ? this.player1.name
-                    : this.player2.name;
+            =>
+                    this.player1.points > this.player2.points
+                            ? this.player1.name
+                            : this.player2.name;
 
         private Int32 Difference ()
-            => this.player1.points - this.player2.points;
+            =>
+                    this.player1.points - this.player2.points;
     }
 }
