@@ -3,6 +3,21 @@ namespace Tennis
     using System;
 
 
+    internal record Score3(
+            Int32 Points )
+    {
+        public override String ToString ()
+            =>
+                    this.Points switch {
+                            0 => "Love",
+                            1 => "Fifteen",
+                            2 => "Thirty",
+                            3 => "Forty",
+                            _ => "",
+                    };
+    }
+
+
     internal record Player3(
             String name )
     {
