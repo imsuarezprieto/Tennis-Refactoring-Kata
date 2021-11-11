@@ -15,6 +15,11 @@ namespace Tennis
                             3 => "Forty",
                             _ => "",
                     };
+
+        public static Score3 operator ++ (
+                Score3 score )
+            =>
+                    score with { Points = score.Points + 1 };
     }
 
 
