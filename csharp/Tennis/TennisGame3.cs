@@ -52,13 +52,12 @@ namespace Tennis
 
         public String GetScore ()
         {
-            String s;
             if (!this.AreOnePlayerInAdvantage()) {
                 return this.player1.points == this.player2.points
                         ? $"{this.player1.points}-All"
                         : $"{this.player1.points}-{this.player2.points}";
             }
-            if (this.player1.points == this.player2.points) {
+            if (this.Difference() == 0) {
                 return "Deuce";
             }
             return this.Difference() * this.Difference() == 1
