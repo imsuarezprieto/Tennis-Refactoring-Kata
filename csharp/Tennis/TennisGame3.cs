@@ -35,8 +35,9 @@ namespace Tennis
             if (this.player1.points == this.player2.points) {
                 return "Deuce";
             }
-            s = this.AdvantagePlayerName();
-            return this.Difference() * this.Difference() == 1 ? "Advantage " + s : "Win for " + s;
+            return this.Difference() * this.Difference() == 1
+                    ? "Advantage " + this.AdvantagePlayerName()
+                    : "Win for " + this.AdvantagePlayerName();
         }
 
         public void WonPoint ( String playerName )
