@@ -3,43 +3,54 @@ namespace Tennis
     using System;
 
 
+    internal record Player3(
+            String name )
+    {
+        public Int32 points { get; private set;  }
+
+        public void AddPoint ()
+            => this.points += 1;
+    }
+
+
     public class TennisGame3 : ITennisGame
     {
-        private int p1;
-        private string p1N;
-        private int p2;
-        private string p2N;
+        private readonly String p1N;
+        private readonly String p2N;
+        private Int32 p1;
+        private Int32 p2;
 
-        public TennisGame3 ( string player1Name, string player2Name )
+        public TennisGame3 ( String player1Name, String player2Name )
         {
             this.p1N = player1Name;
             this.p2N = player2Name;
         }
 
-        public string GetScore ()
+        public String GetScore ()
         {
-            string s;
-            if ((p1 < 4 && p2 < 4) && (p1 + p2 < 6)) {
-                string[] p = { "Love", "Fifteen", "Thirty", "Forty" };
-                s = p[p1];
-                return (p1 == p2) ? s + "-All" : s + "-" + p[p2];
+            String s;
+            if (this.p1 < 4 && this.p2 < 4 && this.p1 + this.p2 < 6) {
+                String[] p = { "Love", "Fifteen", "Thirty", "Forty" };
+                s = p[this.p1];
+                return this.p1 == this.p2 ? s + "-All" : s + "-" + p[this.p2];
+            }
+            if (this.p1 == this.p2) {
+                return "Deuce";
+            }
+            s = this.p1 > this.p2 ? this.p1N : this.p2N;
+            return this.Difference() * this.Difference() == 1 ? "Advantage " + s : "Win for " + s;
+        }
+
+        public void WonPoint ( String playerName )
+        {
+            if (playerName == "player1") {
+                this.p1 += 1;
             }
             else {
-                if (p1 == p2)
-                    return "Deuce";
-                s = p1 > p2 ? p1N : p2N;
-                return (this.Difference() * this.Difference() == 1) ? "Advantage " + s : "Win for " + s;
+                this.p2 += 1;
             }
         }
 
-        public void WonPoint ( string playerName )
-        {
-            if (playerName == "player1")
-                this.p1 += 1;
-            else
-                this.p2 += 1;
-        }
-
-        private Int32 Difference () => (this.p1 - this.p2);
+        private Int32 Difference () => this.p1 - this.p2;
     }
 }
