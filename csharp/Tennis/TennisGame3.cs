@@ -15,42 +15,40 @@ namespace Tennis
 
     public class TennisGame3 : ITennisGame
     {
-        private readonly String p1N;
-        private readonly String p2N;
-        private Int32 p1;
-        private Int32 p2;
+        private readonly Player3 player1;
+        private readonly Player3 player2;
 
         public TennisGame3 ( String player1Name, String player2Name )
         {
-            this.p1N = player1Name;
-            this.p2N = player2Name;
+            this.player1 = new Player3( player1Name );
+            this.player2 = new Player3( player2Name );
         }
 
         public String GetScore ()
         {
             String s;
-            if (this.p1 < 4 && this.p2 < 4 && this.p1 + this.p2 < 6) {
+            if (this.player1.points < 4 && this.player2.points < 4 && this.player1.points + this.player2.points < 6) {
                 String[] p = { "Love", "Fifteen", "Thirty", "Forty" };
-                s = p[this.p1];
-                return this.p1 == this.p2 ? s + "-All" : s + "-" + p[this.p2];
+                s = p[this.player1.points];
+                return this.player1.points == this.player2.points ? s + "-All" : s + "-" + p[this.player2.points];
             }
-            if (this.p1 == this.p2) {
+            if (this.player1.points == this.player2.points) {
                 return "Deuce";
             }
-            s = this.p1 > this.p2 ? this.p1N : this.p2N;
+            s = this.player1.points > this.player2.points ? this.player1.name : this.player2.name;
             return this.Difference() * this.Difference() == 1 ? "Advantage " + s : "Win for " + s;
         }
 
         public void WonPoint ( String playerName )
         {
             if (playerName == "player1") {
-                this.p1 += 1;
+                this.player1.AddPoint();
             }
             else {
-                this.p2 += 1;
+                this.player2.AddPoint();
             }
         }
 
-        private Int32 Difference () => this.p1 - this.p2;
+        private Int32 Difference () => this.player1.points - this.player2.points;
     }
 }
