@@ -51,19 +51,19 @@ namespace Tennis
         }
 
         public String GetScore ()
-        {
-            if (!this.AreOnePlayerInAdvantage()) {
-                return this.player1.points == this.player2.points
-                        ? $"{this.player1.points}-All"
-                        : $"{this.player1.points}-{this.player2.points}";
-            }
-            if (this.Difference() == 0) {
-                return "Deuce";
-            }
-            return this.Difference() * this.Difference() == 1
-                    ? "Advantage " + this.AdvantagePlayerName()
-                    : "Win for " + this.AdvantagePlayerName();
-        }
+            =>
+                    this.AreOnePlayerInAdvantage() switch {
+                            false =>
+                                    this.player1.points == this.player2.points
+                                            ? $"{this.player1.points}-All"
+                                            : $"{this.player1.points}-{this.player2.points}",
+                            true when this.Difference() == 0 =>
+                                    "Deuce",
+                            _ =>
+                                    this.Difference() * this.Difference() == 1
+                                            ? "Advantage " + this.AdvantagePlayerName()
+                                            : "Win for " + this.AdvantagePlayerName(),
+                    };
 
         public void WonPoint ( String playerName )
         {
